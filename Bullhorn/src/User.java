@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.util.Date;
 
@@ -34,9 +32,12 @@ public class User extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String logout = request.getParameter("logout");
-		if (logout != null && logout.equals("true")) {
-			request.getSession().removeAttribute("userName");
+		if (request.getParameter("logout") != null) {
+			String logout = request.getParameter("logout");
+			if (logout.equals("true")) {
+				request.getSession().removeAttribute("userName");
+				getServletContext().getRequestDispatcher("/ShowPostList").forward(request, response);
+			}
 		}
 		doPost(request, response);
 	}
@@ -57,6 +58,7 @@ public class User extends HttpServlet {
 				} else {
 					if (UserDB.selectByName(inputUserN).getPassword().equals(request.getParameter("password"))) {
 						request.getSession().setAttribute("userName", inputUserN);
+						getServletContext().getRequestDispatcher("/ShowPostList").forward(request, response);
 					} else {
 						loginErr += "<script type=\"text/javascript\">validatePassword()</script>";
 						request.setAttribute("loginErr", loginErr);
@@ -90,7 +92,6 @@ public class User extends HttpServlet {
 				}
 			}
 		}
-		getServletContext().getRequestDispatcher("/ShowPostList").forward(request, response);
 	}
 
 }

@@ -63,7 +63,7 @@ public class ShowPostList extends HttpServlet {
 			List<Post> searchList = PostDB.selectByKeyword(request.getParameter("search"));
 			message += "<div class=\"container\"><table class=\"table table-striped\">";
 			for (int i = 0; i < searchList.size(); i++) {
-				message += "<tr><td width=\"10%\">" + searchList.get(i).getId() + "</td><td width=\"60%\">" + searchList.get(i).getTweetuser().getName() + "</td><td width=\"30%\" align=\"right\">" + searchList.get(i).getPostDate() + "</td></tr>";
+				message += "<tr><td width=\"10%\">" + searchList.get(i).getId() + "</td><td width=\"60%\"><a href=\"ShowProfile?name=" + searchList.get(i).getTweetuser().getName() + "\">" + searchList.get(i).getTweetuser().getName() + "</a></td><td width=\"30%\" align=\"right\">" + searchList.get(i).getPostDate() + "</td></tr>";
 				message += "<tr><td colspan=\"3\">" + searchList.get(i).getContent() + "</td></tr>";
 			}
 			message += "</table></div>";
@@ -71,7 +71,7 @@ public class ShowPostList extends HttpServlet {
 			List<Post> postList = PostDB.select();
 			message += "<div class=\"container\"><table class=\"table table-striped\">";
 			for (int i = 0; i < postList.size(); i++) {
-				message += "<tr><td width=\"10%\">" + postList.get(i).getId() + "</td><td width=\"60%\">" + postList.get(i).getTweetuser().getName() + "</td><td width=\"30%\" align=\"right\">" + postList.get(i).getPostDate() + "</td></tr>";
+				message += "<tr><td width=\"10%\">" + postList.get(i).getId() + "</td><td width=\"60%\"><a href=\"ShowProfile?name=" + postList.get(i).getTweetuser().getName() + "\">" + postList.get(i).getTweetuser().getName() + "</a></td><td width=\"30%\" align=\"right\">" + postList.get(i).getPostDate() + "</td></tr>";
 				message += "<tr><td colspan=\"3\">" + postList.get(i).getContent() + "</td></tr>";
 			}
 			message += "</table></div>";

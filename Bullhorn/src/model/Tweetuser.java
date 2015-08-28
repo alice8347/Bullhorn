@@ -32,7 +32,7 @@ public class Tweetuser implements Serializable {
 	private String password;
 
 	//bi-directional many-to-one association to Post
-	@OneToMany(mappedBy="tweetuser")
+	@OneToMany(mappedBy="tweetuser", cascade = CascadeType.ALL)
 	private List<Post> posts;
 
 	public Tweetuser() {

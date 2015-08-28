@@ -28,7 +28,7 @@ public class Post implements Serializable {
 
 	//bi-directional many-to-one association to Tweetuser
 	@ManyToOne
-	@JoinColumn(name="USER_ID")
+	@JoinColumn(name="USER_ID", referencedColumnName="ID")
 	private Tweetuser tweetuser;
 
 	public Post() {

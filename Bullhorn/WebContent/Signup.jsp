@@ -67,7 +67,7 @@ function validateUserName() {
 </div>
 </form>
 </div>
-${SignupErr}
+${signupErr}
 
 </body>
 </html>
