@@ -5,18 +5,18 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
-import model.Post;
+import model.Tweetuser;
 import postTools.DBUtil;
 
-public class PostDB {
+public class UserDB {
 
-	public static List<Post> select() {
+	public static List<Tweetuser> select() {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
-		String query = "SELECT p FROM Post p ORDER BY p.postDate DESC";
-		TypedQuery<Post> q = em.createQuery(query, Post.class);
+		String query = "SELECT u FROM Tweetuser u";
+		TypedQuery<Tweetuser> q = em.createQuery(query, Tweetuser.class);
 		try {
-			List<Post> postList = q.getResultList();
-			return postList;
+			List<Tweetuser> userList = q.getResultList();
+			return userList;
 		} catch (Exception e) {
 			return null;
 		} finally {
@@ -24,13 +24,13 @@ public class PostDB {
 		}
 	}
 	
-	public static List<Post> selectByKeyword(String keyword) {
+	public static Tweetuser selectByName(String userName) {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
-		String query = "SELECT p FROM Post p WHERE p.content LIKE '%" + keyword + "%' ORDER BY p.postDate DESC";
-		TypedQuery<Post> q = em.createQuery(query, Post.class);
+		String query = "SELECT u FROM Tweetuser u WHERE u.name = '" + userName + "'";
+		TypedQuery<Tweetuser> q = em.createQuery(query, Tweetuser.class);
 		try {
-			List<Post> postList = q.getResultList();
-			return postList;
+			Tweetuser user = q.getSingleResult();
+			return user;
 		} catch (Exception e) {
 			return null;
 		} finally {
@@ -38,12 +38,12 @@ public class PostDB {
 		}
 	}
 	
-	public static void insert(Post post) {
+	public static void insert(Tweetuser user) {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 		EntityTransaction trans = em.getTransaction();
 		trans.begin();
 		try {
-			em.persist(post);
+			em.persist(user);
 			trans.commit();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -53,12 +53,12 @@ public class PostDB {
 		}
 	}
 
-	public static void update(Post post) {
+	public static void update(Tweetuser user) {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 		EntityTransaction trans = em.getTransaction();
 		trans.begin();
 		try {
-			em.merge(post);
+			em.merge(user);
 			trans.commit();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -68,12 +68,12 @@ public class PostDB {
 		}
 	}
 
-	public static void delete(Post post) {
+	public static void delete(Tweetuser user) {
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 		EntityTransaction trans = em.getTransaction();
 		trans.begin();
 		try {
-			em.remove(em.merge(post));
+			em.remove(em.merge(user));
 			trans.commit();
 		} catch (Exception e) {
 			System.out.println(e);

@@ -10,13 +10,14 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name="POST", schema="TESTDB")
+@Table(name="Post", schema="TESTDB")
 @NamedQuery(name="Post.findAll", query="SELECT p FROM Post p")
 public class Post implements Serializable {
 	private static final long serialVersionUID = 1L;
+
 	@Id
-	@SequenceGenerator(schema="TESTDB", name="Post_Gen", sequenceName="Post_Seq", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="Post_Gen")
+	@SequenceGenerator(schema="TESTDB", name="POST_ID_GENERATOR", sequenceName="POST_ID_GENERATOR", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="POST_ID_GENERATOR")
 	private long id;
 
 	private String content;
@@ -25,8 +26,10 @@ public class Post implements Serializable {
 	@Column(name="POST_DATE")
 	private Date postDate;
 
-	@Column(name="USER_ID")
-	private long userId;
+	//bi-directional many-to-one association to Tweetuser
+	@ManyToOne
+	@JoinColumn(name="USER_ID")
+	private Tweetuser tweetuser;
 
 	public Post() {
 	}
@@ -55,12 +58,12 @@ public class Post implements Serializable {
 		this.postDate = postDate;
 	}
 
-	public long getUserId() {
-		return this.userId;
+	public Tweetuser getTweetuser() {
+		return this.tweetuser;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setTweetuser(Tweetuser tweetuser) {
+		this.tweetuser = tweetuser;
 	}
 
 }
