@@ -43,6 +43,12 @@ function validateUserName() {
 <br />
 <form class="form-horizontal" role="form" name="SignupForm" id="SignupForm" onsubmit="return validateForm()" action="User" method="post">
 <div class="form-group">
+<label class="control-label col-sm-2" for="image">Photo:</label>
+<div class="col-sm-10">
+<input type="file" class="filestyle" data-buttonName="btn-primary" name="image" id="image">
+</div>
+</div>
+<div class="form-group">
 <label class="control-label col-sm-2" for="userName">User Name:</label>
 <div class="col-sm-10">
 <input type="text" class="form-control" name="userName" id="userName" placeholder="Enter user name">
